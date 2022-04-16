@@ -14,7 +14,7 @@
 <script type="text/javascript">
 <!--
 function fncAddProduct(){
-	document.detailForm.action='/updateProduct.do';
+	document.detailForm.action='/product/updateProduct';
 	document.detailForm.submit();
 }
 -->

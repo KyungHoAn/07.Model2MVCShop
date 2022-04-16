@@ -72,68 +72,72 @@ public class ProductController {
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
 		}
-		search.setCurrentPage(pageSize);
+		search.setPageSize(pageSize);
 		
 		Map<String, Object> map = productService.getProductList(search);
 		
-		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCound")).intValue(), pageUnit, pageSize);
+		Page resultPage = new Page(search.getCurrentPage(), 
+				((Integer)map.get("totalCount")).intValue(),pageUnit, pageSize);
 		System.out.println(resultPage);
 		
-		model.addAttribute("list", map.get("list"));
+		model.addAttribute("list",map.get("list"));
 		model.addAttribute("resultPage",resultPage);
 		model.addAttribute("search", search);
 		
 		return "forward:/product/listProduct.jsp";
 	}
-//	@RequestMapping("/getProduct.do")
-//	public String getProduct(@RequestParam("prodNo") int prodNo, Model model, HttpServletRequest request , HttpServletResponse response) throws Exception{
-//		System.out.println("/getProduct.do");
-//		
-//		Product product = productService.getProduct(prodNo);
-//		
-//		String history;
-//		Cookie cookie = null;
-//		
-//		Cookie[] cookies = request.getCookies();
-//		if (cookies!=null && cookies.length > 0) {
-//			for (int i = 0; i < cookies.length; i++) {
-//				cookie = cookies[i];
-//				if (cookie.getName().equals("history")) {
-//            	
-//					history = URLDecoder.decode(cookie.getValue(),"euc-kr");
-//					history +=","+product;
-//					System.out.println(history);
-//					cookie = new Cookie("history",URLEncoder.encode(history,"euc-kr"));
-//				}else {
-//					cookie = new Cookie("history", Integer.toString(prodNo));
-//				}
-//				
-//			}
-//		}
-//		cookie.setMaxAge(-1);
-//		response.addCookie(cookie);
-//		
-//		model.addAttribute("product",product);
-//		return "forward:/product/readProduct.jsp";
-//	}
-//	
-//	@RequestMapping("/updateProductView.do")
-//	public String updateProductView(@RequestParam("prodNo") int prodNo, Model model) throws Exception{
-//		System.out.println("/updateProductView.do");
-//		
-//		Product product = productService.getProduct(prodNo);
-//		
-//		model.addAttribute("product", product);
-//		
-//		return "forward:/product/updateProduct.jsp";
-//	}
-//	
-//	@RequestMapping("/updateProduct.do")
-//	public String updateProduct(@ModelAttribute("product") Product product, Model model) throws Exception{
-//		System.out.println("/updateProduct.do");
-//		
-//		productService.updateProduct(product);
-//		
-//		return "redirect:/getProduct.do?prodNo="+product.getProdNo();
-//	}
+	
+	@RequestMapping(value="getProduct", method=RequestMethod.GET)
+	public String getProduct(@RequestParam("prodNo") int prodNo, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("/product/getProduct: GET");
+		
+		Product product = productService.getProduct(prodNo);
+		
+		String history;
+		Cookie cookie = null;
+		
+		Cookie[] cookies = request.getCookies();
+		if (cookies!=null && cookies.length > 0) {
+			for (int i = 0; i < cookies.length; i++) {
+				cookie = cookies[i];
+				if (cookie.getName().equals("history")) {
+            	
+					history = URLDecoder.decode(cookie.getValue(),"euc-kr");
+					history +=","+product;
+					System.out.println(history);
+					cookie = new Cookie("history",URLEncoder.encode(history,"euc-kr"));
+				}else {
+					cookie = new Cookie("history", Integer.toString(prodNo));
+				}
+				
+			}
+		}
+		cookie.setMaxAge(-1);
+		response.addCookie(cookie);
+		
+		model.addAttribute("product", product);
+		return "forward:/product/readProduct.jsp";
+	}
+	
+	//@RequestMapping("/updateProducView.do")
+	@RequestMapping(value="updateProduct", method=RequestMethod.GET)
+	public String updateProduct(@RequestParam("prodNo") int prodNo, Model model) throws Exception {
+		System.out.println("/product/updateProduct : GET");
+		
+		Product product = productService.getProduct(prodNo);
+		
+		model.addAttribute("product",product);
+		
+		return "forward:/product/updateProduct.jsp";
+	}
+	
+//	@RequestMapping("/updateProduct")
+	@RequestMapping(value="updateProduct", method=RequestMethod.POST)
+	public String updateProduct(@ModelAttribute("product") Product product, Model model) throws Exception{
+		System.out.println("/product/updateProduct : POST");
+		
+		productService.updateProduct(product);
+		
+		return "redirect:/product/getProduct?prodNo="+product.getProdNo();
+	}
 }

@@ -130,13 +130,13 @@
 					<c:choose>
 						<c:when test="${user.userId eq 'admin'}">
 							<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-								<a href="/updateProductView.do?prodNo=${product.prodNo}">구매</a>						
+								<a href="/product/updateProduct?prodNo=${product.prodNo}">구매</a>						
 							</td>
 						</c:when>
 						
 						<c:otherwise>
 							<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-							<a href="/addPurchaseView.do?prodNo=${product.prodNo}">이전</a>						
+							<a href="/purchase/addPurchaseView?prodNo=${product.prodNo}">이전</a>						
 						</td>
 						</c:otherwise>
 					</c:choose>				
