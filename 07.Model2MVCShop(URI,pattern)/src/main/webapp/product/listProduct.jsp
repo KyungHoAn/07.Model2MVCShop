@@ -154,7 +154,8 @@
 			<% }else{ %>
 					<a href="javascript:fncGetProductList('<%=resultPage.getEndUnitPage()+1%>')">¿Ã»ƒ ¢∫</a>
 			<% } %>
-		 --%> <jsp:include page="../common/pageNavigator.jsp" /></td>
+		 	--%> 
+		 <jsp:include page="../common/pageNavigator.jsp" /></td>
 				</tr>
 			</table>
 			<!-- PageNavigation End... -->

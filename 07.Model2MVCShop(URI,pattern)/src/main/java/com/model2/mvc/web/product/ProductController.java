@@ -62,7 +62,7 @@ public class ProductController {
 		product.setManuDate(date);
 		productService.addProduct(product);
 
-		return "redirect:/product/addProductView.jsp";
+		return "forward:/product/readProduct.jsp";
 	}
 	
 	@RequestMapping(value="listProduct")
