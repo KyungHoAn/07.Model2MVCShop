@@ -34,7 +34,7 @@
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/listProduct.do?menu=${param.menu}" method="post">
+<form name="detailForm" action="/product/listProduct?menu=${param.menu}" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -113,10 +113,10 @@
 			<td align="left">
 			<c:choose>
 				<c:when test="${param.menu eq 'manage' }">
-					<a href="/updateProductView.do?prodNo=${product.prodNo }">${product.prodName }</a>
+					<a href="/product/updateProductView?prodNo=${product.prodNo }">${product.prodName }</a>
 				</c:when>
 				<c:otherwise>
-					<a href="/getProduct.do?prodNo=${product.prodNo}">${product.prodName}</a>
+					<a href="/product/getProduct?prodNo=${product.prodNo}">${product.prodName}</a>
 				</c:otherwise>
 			</c:choose>	</td>
 			<td></td>

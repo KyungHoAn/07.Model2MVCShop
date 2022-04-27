@@ -121,14 +121,15 @@ public class ProductController {
 	}
 	
 	//@RequestMapping("/updateProducView.do")
-	@RequestMapping(value="updateProduct", method=RequestMethod.GET)
+	@RequestMapping(value="updateProductView", method=RequestMethod.GET)
 	public String updateProduct(@RequestParam("prodNo") int prodNo, Model model) throws Exception {
 		System.out.println("/product/updateProduct : GET");
 		
 		Product product = productService.getProduct(prodNo);
 		
 		model.addAttribute("product",product);
-		
+		System.out.println("=====================");
+		System.out.println("여기서 오류인듯?");
 		return "forward:/product/updateProduct.jsp";
 	}
 	
